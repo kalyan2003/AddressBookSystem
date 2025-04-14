@@ -12,3 +12,14 @@ class Contact:
 
     def __str__(self):
         return  f"{self.first_name} {self.last_name}, {self.address}, {self.city}, {self.state}, {self.zip_code}, {self.phone_number}, {self.email}"
+
+
+
+class AddressBook:
+    def __init__(self, name):
+        self.name = name
+        self.contacts = []
+
+    def add_contact(self,contact):
+        self.contacts.append(contact)
+
