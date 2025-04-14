@@ -38,5 +38,20 @@ class AddressBook:
                 self.contacts.remove(contact)
                 return True
         return False
-    
+
+
+class AddressBookSystem:
+    def __init__(self):
+        self.address_books = []
+
+    def add_address_book(self,name):
+        if name not in self.address_books:
+            self.address_books[name] = AddressBook(name)
+
+
+    def get_address_book(self,name):
+        return self.address_books.get(name)
+
+
+
 
