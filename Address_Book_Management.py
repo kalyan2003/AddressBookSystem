@@ -53,5 +53,11 @@ class AddressBookSystem:
         return self.address_books.get(name)
 
 
+    def is_duplicate(self,book_name, first_name):
+        book = self.address_books.get(book_name)
+        if book:
+            return any(contact.first_name == first_name for contact in book.contacts)
+        return False
+    
 
 
