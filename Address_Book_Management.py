@@ -58,6 +58,15 @@ class AddressBookSystem:
         if book:
             return any(contact.first_name == first_name for contact in book.contacts)
         return False
-    
+
+
+    def search_person_contact_by_city_or_state(self,city=None,state=None):
+        result = []
+        for book in self.address_books.values():
+            for contact in book.contacts:
+                if(city and contact.city == city) or (state and contact.state == state):
+                    result.append(contact)
+        return result
+
 
 
