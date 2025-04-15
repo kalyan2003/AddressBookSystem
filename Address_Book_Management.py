@@ -78,4 +78,9 @@ class AddressBookSystem:
                 state_dict.setdefault(contact.state,[]).append(contact)
         return city_dict,state_dict
 
+    def count_by_city_or_state(self):
+        city_dict,state_dict = self.view_by_city_or_state()
+        return {city: len(people) for city,people in city_dict.items()},{state: len(people) for state,people in state_dict.items()}
+    
+
 
