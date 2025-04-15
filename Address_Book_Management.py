@@ -87,6 +87,12 @@ class AddressBookSystem:
         if book:
             return sorted(book.contacts, key=lambda c: (c.first_name,c.last_name))
         return []
-    
+
+    def sort_contacts_by_attribute(self,book_name,attribute):
+        book = self.address_books.get(book_name)
+        if book and hasattr(Contact, attribute):
+            return sorted(book.contacts,key=lambda c: getattr(c, attribute))
+        return []
+
 
 
