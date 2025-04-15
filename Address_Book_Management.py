@@ -69,4 +69,13 @@ class AddressBookSystem:
         return result
 
 
+    def view_by_city_or_state(self):
+        city_dict = {}
+        state_dict = {}
+        for book in self.address_books.values():
+            for contact in book.contacts:
+                city_dict.setdefult(contact.city,[]).append(contact)
+                state_dict.setdefault(contact.state,[]).append(contact)
+        return city_dict,state_dict
+
 
