@@ -81,6 +81,12 @@ class AddressBookSystem:
     def count_by_city_or_state(self):
         city_dict,state_dict = self.view_by_city_or_state()
         return {city: len(people) for city,people in city_dict.items()},{state: len(people) for state,people in state_dict.items()}
+
+    def sort_contacts_by_name(self, book_name):
+        book = self.address_books.get(book_name)
+        if book:
+            return sorted(book.contacts, key=lambda c: (c.first_name,c.last_name))
+        return []
     
 
 
