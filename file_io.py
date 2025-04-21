@@ -1,44 +1,26 @@
-import csv
+import json
 from Address_book import AddressBook
 from schema import Contact
 
-# Write address books to a CSV file
+# Write address books to a file
 def write_to_file(address_books, filename: str):
-    for book_name, book in address_books.items():
-        with open(f"{book_name}_{filename}", 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(["First Name", "Last Name", "Address", "City", "State", "Zip Code", "Phone", "Email"])
-            for contact in book.contacts:
-                writer.writerow([contact.first_name, contact.last_name, contact.address, contact.city, contact.state,
-                                 contact.zip_code, contact.phone_number, contact.email])
+    with open(filename, 'w') as file:
+        data = {book_name: [contact.dict() for contact in book.contacts] for book_name, book in address_books.items()}
+        json.dump(data, file, indent=4)
 
-# Read address books from a CSV file
+# Read address books from a file
 def read_from_file(filename: str):
     address_books = {}
     try:
-        import os
-        for file_name in os.listdir():
-            if file_name.endswith(f"_{filename}"):
-                book_name = file_name.split('_')[0]
+        with open(filename, 'r') as file:
+            data = json.load(file)
+            for book_name, contacts in data.items():
                 address_books[book_name] = AddressBook(book_name)
-
-                with open(file_name, 'r') as file:
-                    reader = csv.reader(file)
-                    next(reader)  # Skip the header row
-                    for row in reader:
-                        contact = Contact(
-                            first_name=row[0],
-                            last_name=row[1],
-                            address=row[2],
-                            city=row[3],
-                            state=row[4],
-                            zip_code=row[5],
-                            phone_number=row[6],
-                            email=row[7]
-                        )
-                        address_books[book_name].add_contact(contact)
+                for contact_data in contacts:
+                    contact = Contact(**contact_data)
+                    address_books[book_name].add_contact(contact)
     except FileNotFoundError:
         print(f"The file {filename} does not exist.")
-    except Exception as e:
-        print(f"Error reading the file: {e}")
+    except json.JSONDecodeError:
+        print("Error reading the file. It may be corrupted or improperly formatted.")
     return address_books

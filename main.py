@@ -7,9 +7,7 @@ def print_welcome_msg():
 def main():
     print_welcome_msg()
     system = AddressBookSystem()
-
-    # Load data from CSV file if it exists
-    filename = "address_book_data.csv"
+    filename = "address_book_data.json"
     system.read_from_file(filename)
 
     while True:
