@@ -30,7 +30,6 @@ def get_contact_input():
         while True:
             value = input(f"{field.replace('_', ' ').title()}: ").strip()
 
-            # Apply the corresponding validator function for each field
             if field == "first_name":
                 validated_value = validate_first_name(value)
             elif field == "last_name":
