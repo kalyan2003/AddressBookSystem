@@ -36,3 +36,4 @@ def test_validate_the_input(first_name, last_name, address, city, zip_code, phon
     assert validate_zip_code(zip_code) == exp_zip
     assert validate_phone_number(phone) == exp_phone
     assert validate_email_id(email) == exp_email
+
