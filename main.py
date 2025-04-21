@@ -8,13 +8,18 @@ def main():
     print_welcome_msg()
     system = AddressBookSystem()
 
+    # Load data from CSV file if it exists
+    filename = "address_book_data.csv"
+    system.read_from_file(filename)
+
     while True:
         print("\n1. Add Address Book")
         print("2. Add Contact")
         print("3. Edit Contact")
         print("4. Delete Contact")
         print("5. View All Contacts")
-        print("6. Exit")
+        print("6. Save and Exit")
+        print("7. Exit Without Saving")
 
         choice = input("Choose an option: ")
 
@@ -65,7 +70,12 @@ def main():
                 print("Address Book not found.")
 
         elif choice == "6":
-            print("Exiting...")
+            system.write_to_file(filename)  # Save the data before exiting
+            print("Data saved. Exiting...")
+            break
+
+        elif choice == "7":
+            print("Exiting without saving...")
             break
 
         else:

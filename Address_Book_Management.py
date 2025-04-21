@@ -1,5 +1,5 @@
 
-
+from file_io import write_to_file,read_from_file
 from Address_book import AddressBook
 from schema import Contact
 
@@ -53,3 +53,11 @@ class AddressBookSystem:
         if book and hasattr(Contact, attribute):
             return sorted(book.contacts, key=lambda c: getattr(c, attribute))
         return []
+
+    # Write address books to a CSV file using the imported write_to_file function
+    def write_to_file(self, filename: str):
+        write_to_file(self.address_books, filename)
+
+    # Read address books from a CSV file using the imported read_from_file function
+    def read_from_file(self, filename: str):
+        self.address_books = read_from_file(filename)
